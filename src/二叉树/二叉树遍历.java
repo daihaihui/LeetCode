@@ -132,4 +132,49 @@ public class 二叉树遍历 {
         }
         return list;
     }
+
+
+    //层次遍历（自己想的）
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root==null) return null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        TreeNode currentNode;
+        List<Integer> current_level_list = new ArrayList<>();
+        int level_length = 1;
+        while (queue.isEmpty() == false) {
+            currentNode = queue.remove();
+            if (currentNode.left != null) queue.add(currentNode.left);
+            if (currentNode.right != null) queue.add(currentNode.right);
+            current_level_list.add(new Integer(currentNode.val));
+            if (current_level_list.size() == level_length) {
+                result.add(current_level_list);
+                current_level_list = new ArrayList<>();
+                level_length=queue.size();
+            }
+        }
+        return result;
+    }
+    //层次遍历（网上找的）
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> result=new ArrayList<>();
+        if(root==null) return  result;
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            List<Integer> list=new ArrayList<>();
+            int count=queue.size();
+            while (count>0){
+                TreeNode node=queue.remove();
+                list.add(new Integer(node.val));
+                if (node.left!=null) queue.add(node.left);
+                if(node.right!=null) queue.add(node.right);
+                count--;
+            }
+            result.add(list);
+        }
+        return  result;
+    }
+
 }
